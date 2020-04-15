@@ -19,21 +19,21 @@ WD=$(cd "$WD"; pwd)
 
 set -eux
 
-gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
+# gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
 
 # Temporary hack to get around some gcloud credential issues
-mkdir ~/.docker
-cp "${DOCKER_CONFIG}/config.json" ~/.docker/
-export DOCKER_CONFIG=~/.docker
-gcloud auth configure-docker -q
+# mkdir ~/.docker
+# cp "${DOCKER_CONFIG}/config.json" ~/.docker/
+# export DOCKER_CONFIG=~/.docker
+# gcloud auth configure-docker -q
 
 VERSION="$(cat "${WD}/trigger-publish")"
 
-SOURCE_GCS_BUCKET=${SOURCE_GCS_BUCKET:-istio-prerelease/prerelease}
-GCS_BUCKET=${GCS_BUCKET:-istio-release/releases}
+# SOURCE_GCS_BUCKET=${SOURCE_GCS_BUCKET:-istio-prerelease/prerelease}
+# GCS_BUCKET=${GCS_BUCKET:-istio-release/releases}
 DOCKER_HUB=${DOCKER_HUB:-docker.io/istio}
-GITHUB_ORG=${GITHUB_ORG:-istio}
-GITHUB_TOKEN_FILE=${GITHUB_TOKEN_FILE:-}
+# GITHUB_ORG=${GITHUB_ORG:-istio}
+# GITHUB_TOKEN_FILE=${GITHUB_TOKEN_FILE:-}
 
 WORK_DIR="$(mktemp -d)/release"
 mkdir -p "${WORK_DIR}"
@@ -41,5 +41,5 @@ mkdir -p "${WORK_DIR}"
 # "Temporary" hacks
 export PATH=${GOPATH}/bin:${PATH}
 
-gsutil -m cp -r "gs://${SOURCE_GCS_BUCKET}/${VERSION}/*" "${WORK_DIR}"
-go run main.go publish --release "${WORK_DIR}" --gcsbucket "${GCS_BUCKET}" --dockerhub "${DOCKER_HUB}" --dockertags "${VERSION}" --github "${GITHUB_ORG}" --githubtoken "${GITHUB_TOKEN_FILE}"
+# gsutil -m cp -r "gs://${SOURCE_GCS_BUCKET}/${VERSION}/*" "${WORK_DIR}"
+go run main.go publish --release "${WORK_DIR}" --dockerhub "${DOCKER_HUB}" --dockertags "${VERSION}"
