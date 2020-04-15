@@ -31,7 +31,7 @@ jobs:
           -e DOCKER_USER="$DOCKER_USER" \
           -e DOCKER_PASS="$DOCKER_PASS" \
           gcr.io/istio-testing/build-tools:master-2020-03-18T15-19-34 \
-          bash -c 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}; ./release/publish.sh'
+          bash -c 'docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}; ./release/build.sh; ./release/publish.sh'
 
 workflows:
   version: 2
