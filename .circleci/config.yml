@@ -18,4 +18,5 @@ jobs:
 
 workflows:
   version: 2
-
+  ci:
+    jobs:
